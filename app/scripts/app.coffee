@@ -1,10 +1,8 @@
 # global define
-define ['enchant', 'jquery'], (enchant, $)->
+define ['enchantjs', 'jquery'], (enchantjs, $)->
     'use strict'
 
-    console.log 'biddle'
-
-    enchant.enchant()
+    enchant()
 
     $(document).ready ()->
         game = new Core 320, 320
