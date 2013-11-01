@@ -1,5 +1,5 @@
 define [], ()->
-    constants =
+    CONSTANTS =
         SCREEN_WIDTH : 320
         SCREEN_HEIGHT : 320
         FPS : 30
@@ -10,7 +10,7 @@ define [], ()->
         SYMBOL_WIDTH : 16
         SYMBOL_HEIGHT : 16
 
-        REEL_SPEED : 15
+        REEL_SPEED : 20
 
         FRAME_CHERRY : 27
         FRAME_WATERMELON : 29
@@ -26,17 +26,19 @@ define [], ()->
         SYMBOL_PIG : 4
         SYMBOL_STAR : 5
 
-    constants.REEL_BASE = [
-        constants.SYMBOL_CHERRY
-        constants.SYMBOL_CHERRY
-        constants.SYMBOL_CHERRY
-        constants.SYMBOL_WATERMELON
-        constants.SYMBOL_WATERMELON
-        constants.SYMBOL_GRAPE
-        constants.SYMBOL_GRAPE
-        constants.SYMBOL_BANANA
-        constants.SYMBOL_PIG
-        constants.SYMBOL_STAR
+    CONSTANTS.REEL_BASE = [
+        CONSTANTS.SYMBOL_CHERRY
+        CONSTANTS.SYMBOL_CHERRY
+        CONSTANTS.SYMBOL_CHERRY
+        CONSTANTS.SYMBOL_WATERMELON
+        CONSTANTS.SYMBOL_WATERMELON
+        CONSTANTS.SYMBOL_GRAPE
+        CONSTANTS.SYMBOL_GRAPE
+        CONSTANTS.SYMBOL_BANANA
+        CONSTANTS.SYMBOL_PIG
+        CONSTANTS.SYMBOL_STAR
     ]
 
-    return constants
+    CONSTANTS.REEL_HEIGHT = CONSTANTS.REEL_BASE.length * CONSTANTS.SYMBOL_HEIGHT
+
+    return CONSTANTS
