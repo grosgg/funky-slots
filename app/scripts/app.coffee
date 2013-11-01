@@ -1,18 +1,26 @@
 # global define
-define ['enchantjs', 'jquery', 'pig'], (enchantjs, $, Pig)->
+define [
+    'jquery'
+    'underscore'
+    'enchantjs'
+    'constants'
+    'scenes/title'
+    'scenes/game'
+], ($, _, enchantjs, C, TitleScene, GameScene)->
+
     'use strict'
 
     enchant()
 
     $(document).ready ()->
-        game = new Core 320, 320
-        game.fps = 30;
-        game.preload 'images/icon0.png', 'sounds/pig.wav'
+        game = new Core C.SCREEN_WIDTH, C.SCREEN_HEIGHT
+        game.fps = C.FPS;
+        game.preload 'images/icon0.png'
         game.onload = ()->
-            scene = new Scene()
+            titleScene = new TitleScene()
+            gameScene = new GameScene(game)
 
-            pig = new Pig 48, 128, game, scene
-            scene.addChild pig
-
-            game.pushScene scene
+            titleScene.addEventListener 'touchend', ()->
+                game.pushScene gameScene
+            game.pushScene titleScene
         game.start()

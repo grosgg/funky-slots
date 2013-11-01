@@ -1,0 +1,1 @@
+define ['enchantjs'], (enchantjs)->

@@ -13,6 +13,7 @@ require.config({
         bootstrapTab: '../bower_components/sass-bootstrap/js/tab',
         bootstrapTooltip: '../bower_components/sass-bootstrap/js/tooltip',
         bootstrapTransition: '../bower_components/sass-bootstrap/js/transition',
+        underscore: '../bower_components/underscore/underscore',
         enchantjs: '../bower_components/enchantjs/build/enchant'
     },
     shim: {
@@ -51,12 +52,16 @@ require.config({
         },
         bootstrapTransition: {
             deps: ['jquery']
+        },
+        underscore: {
+            exports: '_'
         }
     }
 });
 
-require(['app', 'jquery'], function (app, $) {
+require(['app', 'jquery', 'underscore'], function (app, $, _) {
     'use strict';
     // use app here
     console.log('Running jQuery %s', $().jquery);
+    console.log('Running Underscore %s', _.VERSION);
 });
