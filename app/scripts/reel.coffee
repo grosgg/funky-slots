@@ -11,9 +11,10 @@ define [
         
             @game = game
             @symbols = []
-            @frame_modulo = 0
+            @reel_base = _.shuffle C.REEL_BASE
+            # @frame_modulo = 0
 
-            for symbol_type, position in _.shuffle C.REEL_BASE
+            for symbol_type, position in @reel_base
                 @symbols[position] = new Symbol @game, symbol_type, reel_index, position
                 @.addChild @symbols[position]
 
@@ -33,10 +34,22 @@ define [
             #     @frame_modulo = (@game.frame * C.REEL_SPEED) % C.SYMBOL_HEIGHT
 
         stop: ()->
+            # @game.assets['sounds/click.wav'].play()
+            
             for symbol in @symbols
                 symbol.stop()
             @is_spinning = false
 
             @.clearEventListener 'enterframe'
-            @frame_modulo = 0
+            # @frame_modulo = 0
+
+        get_symbols_positions: ()->
+            symbols_positions = []
+
+            for symbol, symbol_index in @symbols
+                symbols_positions[symbol.y / C.SYMBOL_HEIGHT] = symbol.type
+
+            return symbols_positions
+
+
 

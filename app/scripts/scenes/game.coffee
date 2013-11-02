@@ -3,17 +3,18 @@ define [
     'enchantjs'
     'constants'
     'reel'
-], (_, enchantjs, C, Reel)->
+    'prize_machine'
+], (_, enchantjs, C, Reel, PrizeMachine)->
 
     GameScene = enchant.Class.create enchant.Scene,
         initialize: (game)->
             enchant.Scene.call(@)
 
             @.backgroundColor = 'white'
-
+            @prize_machine = new PrizeMachine()
             @reels = []
 
-            for reel_index in [0..2] by 1
+            for reel_index in [0...C.REELS_NUMBER] by 1
                 @reels[reel_index] = new Reel(game, reel_index)
                 @.addChild @reels[reel_index]
 
@@ -40,8 +41,21 @@ define [
                 reel.spin() unless reel.is_spinning
 
         stop: ()->
-            done = false
-            for reel in @reels when done is false
+            done_one = -1
+            for reel, reel_index in @reels when done_one is -1
                 if reel.is_spinning
                     reel.stop()
-                    done = true                
+                    done_one = reel_index
+
+            if done_one == @reels.length-1
+                cash = @prize_machine.get_prize @_get_reels_positions()
+                console.log cash
+
+        _get_reels_positions: ()->
+            reels_positions = []
+            for reel, reel_index in @reels
+                reels_positions[reel_index] = reel.get_symbols_positions()
+
+            return reels_positions
+
+

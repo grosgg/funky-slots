@@ -15,6 +15,7 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
 
             @x = reel * C.SYMBOL_WIDTH
             @y = position * C.SYMBOL_HEIGHT
+            @type = type
 
             return @
 
