@@ -2,7 +2,7 @@ define [
     'underscore'
     'enchantjs'
     'constants'
-    'sprites/symbol'
+    'models/symbol'
 ], (_, enchantjs, C, Symbol)->
 
     Reel = enchant.Class.create enchant.Group,
@@ -47,7 +47,7 @@ define [
             symbols_positions = []
 
             for symbol, symbol_index in @symbols
-                symbols_positions[symbol.y / C.SYMBOL_HEIGHT] = symbol.type
+                symbols_positions[Math.round(symbol.y) / (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)] = symbol.type
 
             return symbols_positions
 

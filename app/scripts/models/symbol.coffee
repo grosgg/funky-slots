@@ -13,8 +13,18 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
                 when C.SYMBOL_PIG then C.FRAME_PIG
                 when C.SYMBOL_STAR then C.FRAME_STAR
 
-            @x = reel * C.SYMBOL_WIDTH
-            @y = position * C.SYMBOL_HEIGHT
+            scale_x_diff = (C.SYMBOL_ORIGINAL_WIDTH / 2) * (C.SYMBOL_SCALE - 1)
+            scale_y_diff = (C.SYMBOL_ORIGINAL_HEIGHT / 2) * (C.SYMBOL_SCALE - 1)
+
+            margin_reel = C.REEL_MARGIN * reel
+            margin_symbol = C.SYMBOL_MARGIN * position
+
+            @x = reel * C.SYMBOL_WIDTH + scale_x_diff + margin_reel
+            @y = position * C.SYMBOL_HEIGHT + scale_y_diff + margin_symbol
+
+            @scaleX = C.SYMBOL_SCALE
+            @scaleY = C.SYMBOL_SCALE
+
             @type = type
 
             return @
@@ -28,7 +38,11 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
             @.clearEventListener 'enterframe'
 
             @_check_y_pos()
-            @y += C.SYMBOL_HEIGHT - @y % C.SYMBOL_HEIGHT
+
+            # Align symbol on slot
+            @.tl.moveBy 0, ((C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN) - @y % (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)), 5
+            # Shift one slot up
+            # @y -= (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)
             
         _check_y_pos: ()->
             if @y >= C.REEL_HEIGHT

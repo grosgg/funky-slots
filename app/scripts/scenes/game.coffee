@@ -2,8 +2,8 @@ define [
     'underscore'
     'enchantjs'
     'constants'
-    'reel'
-    'prize_machine'
+    'models/reel'
+    'models/prize_machine'
 ], (_, enchantjs, C, Reel, PrizeMachine)->
 
     GameScene = enchant.Class.create enchant.Scene,
@@ -12,14 +12,25 @@ define [
 
             @.backgroundColor = 'white'
             @prize_machine = new PrizeMachine()
+            @credits = C.CREDITS
             @reels = []
 
             for reel_index in [0...C.REELS_NUMBER] by 1
                 @reels[reel_index] = new Reel(game, reel_index)
                 @.addChild @reels[reel_index]
 
+            slot_top = new Sprite 320, 106
+            slot_top.image = game.assets['images/slot_top.gif']
+            slot_top.moveTo 0, 0
+            @.addChild slot_top
+
+            slot_bottom = new Sprite 320, 30
+            slot_bottom.image = game.assets['images/slot_bottom.gif']
+            slot_bottom.moveTo 0, 290
+            @.addChild slot_bottom
+
             spin_button = new Label 'SPIN'
-            spin_button.color = 'black'
+            spin_button.color = 'white'
             spin_button.font = '14px "Courier New"'
             spin_button.moveTo 250, 10
             spin_button.addEventListener 'touchstart', ()=>
@@ -27,7 +38,7 @@ define [
             @.addChild spin_button
 
             stop_button = new Label 'STOP'
-            stop_button.color = 'black'
+            stop_button.color = 'white'
             stop_button.font = '14px "Courier New"'
             stop_button.moveTo 250, 30
             stop_button.addEventListener 'touchstart', ()=>
@@ -37,8 +48,16 @@ define [
             return @
 
         spin: ()->
+            return if @credits < C.BET
+
             for reel in @reels
-                reel.spin() unless reel.is_spinning
+                return if reel.is_spinning
+
+            for reel in @reels
+                reel.spin()
+
+            @credits -= C.BET
+            console.log @credits
 
         stop: ()->
             done_one = -1
@@ -48,14 +67,17 @@ define [
                     done_one = reel_index
 
             if done_one == @reels.length-1
-                cash = @prize_machine.get_prize @_get_reels_positions()
-                console.log cash
+                @.tl.delay(10).then ()=>
+                    prize = @prize_machine.get_prize @_get_reels_positions()
+                    @credits += prize
+                    console.log @credits
 
         _get_reels_positions: ()->
             reels_positions = []
             for reel, reel_index in @reels
                 reels_positions[reel_index] = reel.get_symbols_positions()
 
+            console.log reels_positions
             return reels_positions
 
 
