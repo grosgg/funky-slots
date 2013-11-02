@@ -23,9 +23,10 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
                 if @y >= C.REEL_HEIGHT
                     diff = @y - C.REEL_HEIGHT
                     @y = diff
-                    
+
                 @y += C.REEL_SPEED
 
         stop: ()->
             @.clearEventListener 'enterframe'
+            @y += C.SYMBOL_HEIGHT - @y % C.SYMBOL_HEIGHT
             
