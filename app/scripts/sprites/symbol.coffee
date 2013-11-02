@@ -20,13 +20,16 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
 
         spin: ()->
             @.addEventListener 'enterframe', ()->
-                if @y >= C.REEL_HEIGHT
-                    diff = @y - C.REEL_HEIGHT
-                    @y = diff
-
+                @_check_y_pos()
                 @y += C.REEL_SPEED
 
         stop: ()->
             @.clearEventListener 'enterframe'
+
+            @_check_y_pos()
             @y += C.SYMBOL_HEIGHT - @y % C.SYMBOL_HEIGHT
             
+        _check_y_pos: ()->
+            if @y >= C.REEL_HEIGHT
+                diff = @y - C.REEL_HEIGHT
+                @y = diff

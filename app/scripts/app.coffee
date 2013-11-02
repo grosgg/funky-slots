@@ -15,7 +15,7 @@ define [
     $(document).ready ()->
         game = new Core C.SCREEN_WIDTH, C.SCREEN_HEIGHT
         game.fps = C.FPS;
-        game.preload 'images/icon0.png'
+        game.preload 'images/icon0.png', 'sounds/click.wav'
         game.onload = ()->
             titleScene = new TitleScene()
             gameScene = new GameScene(game)

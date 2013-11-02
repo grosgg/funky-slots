@@ -10,7 +10,7 @@ define [], ()->
         SYMBOL_WIDTH : 16
         SYMBOL_HEIGHT : 16
 
-        REEL_SPEED : 20
+        REEL_SPEED : 10
 
         FRAME_CHERRY : 27
         FRAME_WATERMELON : 29
