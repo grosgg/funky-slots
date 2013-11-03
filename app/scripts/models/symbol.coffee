@@ -26,13 +26,14 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
             @scaleY = C.SYMBOL_SCALE
 
             @type = type
+            @reel_speed = game.reel_speed
 
             return @
 
         spin: ()->
             @.addEventListener 'enterframe', ()->
                 @_check_y_pos()
-                @y += C.REEL_SPEED
+                @y += @reel_speed
 
         stop: ()->
             @.clearEventListener 'enterframe'

@@ -16,7 +16,9 @@ define [], ()->
         SYMBOL_MARGIN: 10
 
         REELS_NUMBER : 3
-        REEL_SPEED : 15
+        REEL_SPEED_EASY : 10
+        REEL_SPEED_MEDIUM : 15
+        REEL_SPEED_HARD : 20
 
         FRAME_CHERRY : 27
         FRAME_WATERMELON : 29

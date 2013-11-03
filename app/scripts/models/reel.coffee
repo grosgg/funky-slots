@@ -19,7 +19,6 @@ define [
                 @.addChild @symbols[position]
 
             @is_spinning = false
-            console.log 'origin y symbol: '+@symbols[0].y
             return @
 
         spin: ()->
@@ -30,12 +29,12 @@ define [
 
             # @.addEventListener 'enterframe', ()->
             #     # Play sound on each slot passed
-            #     if (@game.frame * C.REEL_SPEED) % C.SYMBOL_HEIGHT < @frame_modulo
+            #     if (@game.frame * @game.reel_speed) % C.SYMBOL_HEIGHT < @frame_modulo
             #         @game.assets['sounds/click.wav'].play()
-            #     @frame_modulo = (@game.frame * C.REEL_SPEED) % C.SYMBOL_HEIGHT
+            #     @frame_modulo = (@game.frame * @game.reel_speed) % C.SYMBOL_HEIGHT
 
         stop: ()->
-            # @game.assets['sounds/click.wav'].play()
+            @game.assets['sounds/click.wav'].play()
             
             for symbol in @symbols
                 symbol.stop()
