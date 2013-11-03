@@ -46,13 +46,10 @@ define [
 
         get_symbols_positions: ()->
             symbols_positions = []
-            debug = []
 
             for symbol, symbol_index in @symbols
                 symbols_positions[Math.round(symbol.y) / (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)] = symbol.type
-                debug[symbol_index] = symbol.y
 
-            console.log debug
             return symbols_positions
 
 

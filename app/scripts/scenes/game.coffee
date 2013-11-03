@@ -4,7 +4,9 @@ define [
     'constants'
     'models/reel'
     'models/prize_machine'
-], (_, enchantjs, C, Reel, PrizeMachine)->
+    'models/score_label'
+    'models/action_button'
+], (_, enchantjs, C, Reel, PrizeMachine, ScoreLabel, ActionButton)->
 
     GameScene = enchant.Class.create enchant.Scene,
         initialize: (game)->
@@ -25,21 +27,27 @@ define [
             bg.moveTo 0, 0
             @.addChild bg
 
-            spin_button = new Label 'SPIN'
-            spin_button.color = 'white'
-            spin_button.font = '14px "Courier New"'
-            spin_button.moveTo 250, 10
+            @score_label = new ScoreLabel 20, 40
+            @score_label.update C.CREDITS
+            @.addChild @score_label
+
+            spin_button = new ActionButton 'SPIN', 100, 290
             spin_button.addEventListener 'touchstart', ()=>
                 @.spin()
             @.addChild spin_button
 
-            stop_button = new Label 'STOP'
-            stop_button.color = 'white'
-            stop_button.font = '14px "Courier New"'
-            stop_button.moveTo 250, 30
+            stop_button = new ActionButton 'STOP', 200, 290
             stop_button.addEventListener 'touchstart', ()=>
                 @.stop()
             @.addChild stop_button
+
+            finger = new Sprite 16, 16
+            finger.image = game.assets['images/icon0.png']
+            finger.frame = 42
+            finger.scaleX = 2
+            finger.scaleY = 2
+            finger.moveTo 16, 174
+            @addChild finger
 
             return @
 
@@ -53,7 +61,6 @@ define [
                 reel.spin()
 
             @credits -= C.BET
-            console.log @credits
 
         stop: ()->
             done_one = -1
@@ -66,14 +73,13 @@ define [
                 @.tl.delay(10).then ()=>
                     prize = @prize_machine.get_prize @_get_reels_positions()
                     @credits += prize
-                    console.log @credits
+                    @score_label.update @credits
 
         _get_reels_positions: ()->
             reels_positions = []
             for reel, reel_index in @reels
                 reels_positions[reel_index] = reel.get_symbols_positions()
 
-            console.log reels_positions
             return reels_positions
 
 
