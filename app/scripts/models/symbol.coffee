@@ -14,13 +14,13 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
                 when C.SYMBOL_STAR then C.FRAME_STAR
 
             scale_x_diff = (C.SYMBOL_ORIGINAL_WIDTH / 2) * (C.SYMBOL_SCALE - 1)
-            scale_y_diff = (C.SYMBOL_ORIGINAL_HEIGHT / 2) * (C.SYMBOL_SCALE - 1)
+            # scale_y_diff = (C.SYMBOL_ORIGINAL_HEIGHT / 2) * (C.SYMBOL_SCALE - 1)
 
             margin_reel = C.REEL_MARGIN * reel
             margin_symbol = C.SYMBOL_MARGIN * position
 
             @x = reel * C.SYMBOL_WIDTH + scale_x_diff + margin_reel
-            @y = position * C.SYMBOL_HEIGHT + scale_y_diff + margin_symbol
+            @y = position * C.SYMBOL_HEIGHT + margin_symbol
 
             @scaleX = C.SYMBOL_SCALE
             @scaleY = C.SYMBOL_SCALE
@@ -40,7 +40,7 @@ define ['enchantjs', 'constants'], (enchantjs, C)->
             @_check_y_pos()
 
             # Align symbol on slot
-            @.tl.moveBy 0, ((C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN) - @y % (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)), 5
+            @.tl.moveBy 0, ((C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN) - @y % (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)), 0
             # Shift one slot up
             # @y -= (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)
             

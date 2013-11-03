@@ -6,7 +6,7 @@ define [], ()->
 
         CREDITS: 100
         BET : 10
-        PRIZE_ROW : 2
+        PRIZE_ROW : 3
 
         SYMBOL_SCALE: 3
         SYMBOL_ORIGINAL_WIDTH : 16

@@ -19,15 +19,11 @@ define [
                 @reels[reel_index] = new Reel(game, reel_index)
                 @.addChild @reels[reel_index]
 
-            slot_top = new Sprite 320, 106
-            slot_top.image = game.assets['images/slot_top.gif']
-            slot_top.moveTo 0, 0
-            @.addChild slot_top
-
-            slot_bottom = new Sprite 320, 30
-            slot_bottom.image = game.assets['images/slot_bottom.gif']
-            slot_bottom.moveTo 0, 290
-            @.addChild slot_bottom
+            bg = new Sprite 320, 320
+            bg.image = game.assets['images/bg.png']
+            bg.frame = 2
+            bg.moveTo 0, 0
+            @.addChild bg
 
             spin_button = new Label 'SPIN'
             spin_button.color = 'white'

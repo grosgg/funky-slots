@@ -19,6 +19,7 @@ define [
                 @.addChild @symbols[position]
 
             @is_spinning = false
+            console.log 'origin y symbol: '+@symbols[0].y
             return @
 
         spin: ()->
@@ -45,10 +46,13 @@ define [
 
         get_symbols_positions: ()->
             symbols_positions = []
+            debug = []
 
             for symbol, symbol_index in @symbols
                 symbols_positions[Math.round(symbol.y) / (C.SYMBOL_HEIGHT + C.SYMBOL_MARGIN)] = symbol.type
+                debug[symbol_index] = symbol.y
 
+            console.log debug
             return symbols_positions
 
 
