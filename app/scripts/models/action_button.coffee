@@ -5,7 +5,7 @@ define ['enchantjs'], (enchantjs)->
             enchant.Label.call @, caption
 
             @.color = 'white'
-            @.font = '14px "Courier New"'
+            @.font = '42px "Courier New"'
             @.moveTo x, y
 
             return @

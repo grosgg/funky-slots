@@ -34,15 +34,18 @@ define [
             @prize_label = new InfoLabel '', 200, 35
             @addChild @prize_label
 
-            spin_button = new ActionButton 'SPIN', 88, 290
-            spin_button.addEventListener 'touchstart', ()=>
+            action_button = new ActionButton 'SPIN', 110, 280
+            action_button.addEventListener 'touchstart', ()=>
+                for reel, i in @reels
+                    if reel.is_spinning
+                        @.stop()
+                        action_button.text = 'SPIN' if (i+1 >= C.REELS_NUMBER)
+                        return
                 @.spin()
-            @addChild spin_button
+                action_button.text = 'STOP'
+                
+            @addChild action_button
 
-            stop_button = new ActionButton 'STOP', 200, 290
-            stop_button.addEventListener 'touchstart', ()=>
-                @.stop()
-            @addChild stop_button
 
             finger = new Sprite 16, 16
             finger.image = game.assets['images/icon0.png']
