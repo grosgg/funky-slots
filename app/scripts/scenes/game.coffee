@@ -16,6 +16,8 @@ define [
             @prize_machine = new PrizeMachine()
             @credits = C.CREDITS
             @reels = []
+            @last_space_down = 0
+            game.keybind(32, 'space')
 
             for reel_index in [0...C.REELS_NUMBER] by 1
                 @reels[reel_index] = new Reel(game, reel_index)
@@ -39,11 +41,18 @@ define [
                 for reel, i in @reels
                     if reel.is_spinning
                         @.stop()
-                        action_button.text = 'SPIN' if (i+1 >= C.REELS_NUMBER)
+                        if (i+1 >= C.REELS_NUMBER)
+                            action_button.text = 'SPIN'
+                            @last_space_down += C.FPS # Delay next spin for 1 second 
                         return
                 @.spin()
                 action_button.text = 'STOP'
-                
+
+            action_button.addEventListener 'enterframe', ()=>
+                if game.input.space and @age > @last_space_down + (C.FPS / 5)
+                    @last_space_down = @age
+                    action_button.dispatchEvent(new Event('touchstart'))
+
             @addChild action_button
 
 
