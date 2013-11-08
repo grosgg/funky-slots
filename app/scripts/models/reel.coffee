@@ -34,7 +34,7 @@ define [
             #     @frame_modulo = (@game.frame * @game.reel_speed) % C.SYMBOL_HEIGHT
 
         stop: ()->
-            @game.assets['sounds/click.wav'].play()
+            # @game.assets['sounds/click.wav'].play()
             
             for symbol in @symbols
                 symbol.stop()
